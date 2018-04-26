@@ -1,0 +1,22 @@
+version: 2
+workflows:
+  version: 2
+  tests:
+    jobs: ['quickchecks']
+
+jobs:
+
+  quickchecks:
+    docker: [image: 'erlang:alpine']
+    environment:
+    - R3: /usr/local/bin
+    steps:
+    - run: apk update && apk upgrade && apk add make curl git
+    - run: |
+        curl -#fSLo rebar3 https://s3.amazonaws.com/rebar3/rebar3
+        chmod +x rebar3 && mv -v rebar3 $R3/
+        export PATH="$PATH:"$R3
+        rebar3 version
+    - checkout
+    - run: rebar3 compile && rebar3 as test compile
+    - run: rebar3 as test proper -m prop_basic

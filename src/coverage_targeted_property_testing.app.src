@@ -1,0 +1,15 @@
+{application, coverage_targeted_property_testing,
+ [{description, "Demonstrate using code coverage as a &quot;utility value&quot; for PropEr (quickcheck) to maximize"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {maintainers, []},
+  {licenses, ["Apache 2.0"]},
+  {links, []}
+ ]}.
