@@ -1,5 +1,5 @@
 %% -*- coding: utf-8 -*-
--module(prop_basic).
+-module(prop_01_basic).
 
 -include_lib("proper/include/proper.hrl").
 
