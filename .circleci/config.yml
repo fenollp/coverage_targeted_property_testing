@@ -19,11 +19,22 @@ jobs:
         rebar3 version
     - checkout
     - run: rebar3 compile && rebar3 as test compile
+
     - run: |
         for _ in $(seq 0 5); do
           if rebar3 as test proper -m prop_01_basic; then
-            break
+            exit 0
           fi
         done
+        exit 1
+
     - run: |
         ! rebar3 as test proper -m prop_02_informed
+
+    - run: |
+        for _ in $(seq 0 5); do
+          if ! rebar3 as test proper -m prop_03_coverage_targeted; then
+            exit 0
+          fi
+        done
+        exit 1
