@@ -18,22 +18,22 @@ jobs:
         export PATH="$PATH:"$R3
         rebar3 version
     - checkout
-    - run: rebar3 compile && rebar3 as test compile
+    - run: rebar3 compile
 
     - run: |
         for _ in $(seq 0 5); do
-          if rebar3 as test proper -m prop_01_basic; then
+          if rebar3 proper -m prop_01_basic; then
             exit 0
           fi
         done
         exit 1
 
     - run: |
-        ! rebar3 as test proper -m prop_02_informed
+        ! rebar3 proper -m prop_02_informed
 
     - run: |
         for _ in $(seq 0 5); do
-          if ! rebar3 as test proper -m prop_03_coverage_targeted; then
+          if ! rebar3 proper -m prop_03_coverage_targeted; then
             exit 0
           fi
         done

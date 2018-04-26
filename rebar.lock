@@ -1,1 +1,4 @@
-[].
+[{<<"proper">>,
+  {git,"https://github.com/manopapad/proper.git",
+       {ref,"646c0103280f09832ee1b164ae328037760bb2f0"}},
+  0}].
