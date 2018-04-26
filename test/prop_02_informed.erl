@@ -8,5 +8,5 @@
 expected_edge_cases() ->
     oneof([-43,-42, -21, -3,-2-1, 0, 1,2,3, 21, 42,43]).
 
-prop_informed() ->
+prop_02() ->
     ?FORALL(N, expected_edge_cases(), ctpt_demo:f(N)).

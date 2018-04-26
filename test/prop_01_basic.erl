@@ -5,5 +5,5 @@
 
 %% Too hard for a simple property like this one to find failure!
 
-prop_basic() ->
+prop_01() ->
     ?FORALL(N, integer(), ctpt_demo:f(N)).
