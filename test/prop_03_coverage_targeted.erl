@@ -10,8 +10,9 @@ prop_03() ->
                     ,begin
                          ok = cover_begin(),
                          Result = ctpt_demo:f(N),
-                         {ok,_Percentage,_Covered} = cover_end(),
-                         io:format(user, "lines:~p %:~p", [_Covered,_Percentage]),
+                         {ok,_Percentage,_Covered,_NotCovered} = cover_end(),
+
+                         io:format(user, "~p/~p ~s%\n", [_Covered,_Covered+_NotCovered,float_to_list(_Percentage,[{decimals,2},compact])]),
                          ?MAXIMIZE(_Covered),
                          %% ?MAXIMIZE(_Percentage),
                          Result
@@ -29,11 +30,9 @@ cover_end() ->
     {result,Ok,_Fail=[]} = cover:analyse(coverage, line),
     ok = cover:stop(),
     {Covs,NotCovs} = lists:unzip([{Cov,NotCov} || {_ModLine, {Cov,NotCov}} <- Ok]),
-    Covered = lists:sum(Covs),
-    Coverage =
-        case lists:sum(NotCovs) of
-            0 -> 100.0;
-            NotCovered ->
-                trunc(100.0 * (Covered / (Covered + NotCovered)))
-        end,
-    {ok, Coverage, Covered}.
+    {Covered,NotCovered} = {lists:sum(Covs), lists:sum(NotCovs)},
+    Coverage = 100.0 * case NotCovered of
+                           0 -> 1;
+                           NotCovered -> Covered / (Covered + NotCovered)
+                       end,
+    {ok, Coverage, Covered, NotCovered}.

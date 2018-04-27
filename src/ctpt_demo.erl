@@ -9,18 +9,12 @@
 -spec f(integer()) -> boolean().
 f(N) when is_integer(N) ->
     case N of
-        _ when N =:= ?SOME_VALUE -> ?HERE, false;
-        _ when N < ?SOME_VALUE/2 ->
+        0 -> ?HERE, true;
+        _ when N rem 3 =:= 0 ->
             case N of
-                _ when N =:= ?SOME_VALUE div 2 -> ?HERE, false;
-                _ when N < ?SOME_VALUE/4 ->
+                _ when N rem 5 =:= 0 ->
                     case N of
-                        _ when N =:= ?SOME_VALUE div 4 -> ?HERE, false;
-                        _ when N < ?SOME_VALUE/8 ->
-                            case N of
-                                _ when N > ?SOME_VALUE/8 -> ?HERE, false;
-                                _ -> ?HERE, true
-                            end;
+                        _ when N rem 7 =:= 0 -> ?HERE, false;
                         _ -> ?HERE, true
                     end;
                 _ -> ?HERE, true
