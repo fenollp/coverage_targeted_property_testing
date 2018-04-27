@@ -13,8 +13,12 @@ prop_03() ->
                          {ok,_Percentage,_Covered,_NotCovered} = cover_end(),
 
                          io:format(user, "~p/~p ~s%\n", [_Covered,_Covered+_NotCovered,float_to_list(_Percentage,[{decimals,2},compact])]),
-                         ?MAXIMIZE(_Covered),
                          %% ?MAXIMIZE(_Percentage),
+                         %% ?MAXIMIZE(_Covered),
+                         %% Note: using number of lines covered instead of coverage% is consistently better in empirical tests
+                         %%   Maybe the search strategy sees more reward in an incr unbounded than whatever progress can be made within 0..1
+                         %% Turns out trying to reward more doesn't work (here): 2* or 3* does not ever find 105*_!
+                         ?MAXIMIZE(1 * _Covered),
                          Result
                      end
                     ).
