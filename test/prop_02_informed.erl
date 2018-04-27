@@ -2,11 +2,12 @@
 -module(prop_02_informed).
 
 -include_lib("proper/include/proper.hrl").
+-include("ctpt.hrl").
 
 %% An informed tester will try/guess some expected edge cases.
 
 expected_edge_cases() ->
-    oneof([-43,-42, -21, -3,-2-1, 0, 1,2,3, 21, 42,43]).
+    oneof([-43,-42, -21, -3,-2-1, 0, 1,2,3, 21, 43, ?SOME_VALUE]).
 
 prop_02() ->
     ?FORALL(N, expected_edge_cases(), ctpt_demo:f(N)).
